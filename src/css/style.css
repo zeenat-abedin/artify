@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav ul {
+  list-style-type: none;
+  padding-top: 10px;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#api-status {
+  margin-top: 100px;
+  font-family: monospace;
+  text-align: center;
+  font-size: 1rem;
+  background-color: rgb(219, 219, 219);
+  padding: 10px;
+}
