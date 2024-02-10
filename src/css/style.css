@@ -12,6 +12,11 @@ header {
   justify-content: space-between;
 }
 
+h2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
 nav ul {
   list-style-type: none;
   padding-top: 10px;
@@ -25,6 +30,31 @@ nav ul li {
 nav ul li a {
   color: #fff;
   text-decoration: none;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.card p {
+  margin: 10px 0;
 }
 
 #api-status {

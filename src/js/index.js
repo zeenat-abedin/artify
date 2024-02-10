@@ -2,31 +2,52 @@
 
 // If you do not require a simulated backend, you can remove the code shown below.
 
-const apiStatus = document.querySelector("#api-status");
+// const apiStatus = document.querySelector("#api-status");
 
-if (import.meta.env.DEV) {
-  import("../api/browser")
-    .then(({ worker }) => worker.start())
-    .then(() => fetch("/"))
-    .then((res) => res.json())
-    .then((res) => (apiStatus.innerText = res.message));
-}
-// --------------------
+// if (import.meta.env.DEV) {
+//   import("../api/browser")
+//     .then(({ worker }) => worker.start())
+//     .then(() => fetch("/"))
+//     .then((res) => res.json())
+//     .then((res) => (apiStatus.innerText = res.message));
+// }
 
 const API_URL = "https://api.unsplash.com";
 const UNSPLASH_ACCESS_KEY = "9eUvuW14SeKzJLwV5qB7LLIOg50rsc5cZaeIcX7ZGf8";
 
-const addImagesToDom = (images) => {
+// Function to render data in cards
+
+const renderData = (images) => {
+  const grid = document.querySelector(".grid");
+
   images.forEach((image) => {
     const container = document.createElement("div");
     const imageElement = document.createElement("img");
 
-    imageElement.src = image.urls.regular;
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const title = document.createElement("h2");
+    title.textContent = image.title;
+
+    const body = document.createElement("p");
+    body.textContent = image.body;
+
+    imageElement.src = image?.urls?.regular;
+    // imageElement.alt = image.alt_description || "";
+    // imageElement.description = image.description || "";
+
     container.append(imageElement);
+    grid.append(container);
+
+    card.appendChild(title);
+    card.appendChild(body);
+    container.appendChild(card);
   });
 };
 
-const initializeImages = async () => {
+//fetch data
+const fetchData = async () => {
   const res = await fetch(
     `${API_URL}/photos/?client_id=${UNSPLASH_ACCESS_KEY}`
   );
@@ -36,13 +57,12 @@ const initializeImages = async () => {
 
   const images = data.map((image) => image.urls.regular);
   console.log(images);
-  addImagesToDom();
+  renderData(images);
 };
-
-initializeImages();
+fetchData();
 
 document.addEventListener("DOMContentLoaded", function () {
-  // const homeLink = document.getElementById("home");
+  const homeLink = document.getElementById("home");
   const modernArtLink = document.getElementById("modern-art");
   const classicsLink = document.getElementById("classics");
   const sculpturesLink = document.getElementById("sculptures");
@@ -50,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const abstractArtLink = document.getElementById("abstract-art");
   const favouritesLink = document.getElementById("favourites");
 
-  // homeLink.addEventListener("click", showHome);
+  homeLink.addEventListener("click", showHome);
   modernArtLink.addEventListener("click", showModernArt);
   classicsLink.addEventListener("click", showClassics);
   sculpturesLink.addEventListener("click", showSculptures);
@@ -58,49 +78,42 @@ document.addEventListener("DOMContentLoaded", function () {
   abstractArtLink.addEventListener("click", showAbstractArt);
   favouritesLink.addEventListener("click", showFavourites);
 
-  // function showHome(e) {
-  //   e.preventDefault();
-  //   gallery.innerHTML =
-  //     "<h2>Welcome to Artify!</h2><p>Explore our collection of art.</p>";
-  // }
+  function showHome(e) {
+    e.preventDefault();
+    grid.innerHTML =
+      "<h2>Welcome to Artify!</h2><p>Explore our collection of art.</p>";
+  }
 
   function showModernArt(e) {
     e.preventDefault();
-    // Fetch modern-art from API (e.g., Unsplash)
     fetchArtworks("modern-art").then((artworks) => displayArtworks(artworks));
   }
 
   function showClassics(e) {
     e.preventDefault();
-    // Fetch classics from API (e.g., Unsplash)
     fetchArtworks("classics").then((artworks) => displayArtworks(artworks));
   }
 
   function showSculptures(e) {
     e.preventDefault();
-    // Fetch sculptures from API (e.g., Unsplash)
     fetchArtworks("sculptures").then((artworks) => displayArtworks(artworks));
   }
 
   function showCubism(e) {
     e.preventDefault();
-    // Fetch cubism from API (e.g., Unsplash)
     fetchArtworks("cubism").then((artworks) => displayArtworks(artworks));
   }
 
   function showAbstractArt(e) {
     e.preventDefault();
-    // Fetch sculptures from API (e.g., Unsplash)
     fetchArtworks("abstract-art").then((artworks) => displayArtworks(artworks));
   }
 
   function showFavourites(e) {
     e.preventDefault();
-    // Fetch cubism from API (e.g., Unsplash)
     fetchArtworks("favourites").then((artworks) => displayArtworks(artworks));
   }
   function fetchArtworks(category) {
-    // Simulated fetch using a placeholder array of objects
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const artworks = [
@@ -121,6 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>${artwork.title} by ${artwork.artist}</p>
                     </div>`;
     });
-    gallery.innerHTML = html;
+    grid.innerHTML = html;
   }
 });
