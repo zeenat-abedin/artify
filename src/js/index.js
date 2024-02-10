@@ -106,12 +106,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showAbstractArt(e) {
     e.preventDefault();
-    fetchArtworks("abstract-art").then((artworks) => displayArtworks(artworks));
+    // Use the search functionality with an empty query parameter to get all works in the "abstract" from the above unsplash API
+    fetchArtworks("abstract-art").then((images) => {
+      console.log(images);
+      let imageIndex = Math.floor(Math.random() * images.length);
+      window.location.href = `/image?id=${images[imageIndex]._id}`;
+
+      let filteredArtworks = images.filter(
+        (image) => image.is_abstract === true
+      );
+      displayArtworks(filteredArtworks);
+    });
   }
 
   async function showFavourites(e) {
     e.preventDefault();
-    const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    const favourites = JSON.parse(localStorage.getItem("liked_by_user")) || [];
     if (favourites.length === 0) {
       grid.innerHTML = "<h2>No favourites yet.</h2>";
     } else {
