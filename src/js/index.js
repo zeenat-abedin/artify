@@ -11,8 +11,21 @@ if (import.meta.env.DEV) {
     .then((res) => res.json())
     .then((res) => (apiStatus.innerText = res.message));
 }
+// --------------------
 
 const API_URL = "https://api.unsplash.com";
+const UNSPLASH_ACCESS_KEY = "9eUvuW14SeKzJLwV5qB7LLIOg50rsc5cZaeIcX7ZGf8";
+
+const initializeImages = async () => {
+  const res = await fetch(
+    `${API_URL}/photos/random?count=50&client_id=${UNSPLASH_ACCESS_KEY}`
+  );
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  const data = res.json();
+  console.log(data);
+};
+
+initializeImages();
 
 document.addEventListener("DOMContentLoaded", function () {
   // const homeLink = document.getElementById("home");
