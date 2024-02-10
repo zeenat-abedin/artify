@@ -16,13 +16,27 @@ if (import.meta.env.DEV) {
 const API_URL = "https://api.unsplash.com";
 const UNSPLASH_ACCESS_KEY = "9eUvuW14SeKzJLwV5qB7LLIOg50rsc5cZaeIcX7ZGf8";
 
+const addImagesToDom = (images) => {
+  images.forEach((image) => {
+    const container = document.createElement("div");
+    const imageElement = document.createElement("img");
+
+    imageElement.src = image.urls.regular;
+    container.append(imageElement);
+  });
+};
+
 const initializeImages = async () => {
   const res = await fetch(
-    `${API_URL}/photos/?count=50&client_id=${UNSPLASH_ACCESS_KEY}`
+    `${API_URL}/photos/?client_id=${UNSPLASH_ACCESS_KEY}`
   );
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   const data = await res.json();
   console.log(data);
+
+  const images = data.map((image) => image.urls.regular);
+  console.log(images);
+  addImagesToDom();
 };
 
 initializeImages();
