@@ -18,10 +18,10 @@ const UNSPLASH_ACCESS_KEY = "9eUvuW14SeKzJLwV5qB7LLIOg50rsc5cZaeIcX7ZGf8";
 
 const initializeImages = async () => {
   const res = await fetch(
-    `${API_URL}/photos/random?count=50&client_id=${UNSPLASH_ACCESS_KEY}`
+    `${API_URL}/photos/?count=50&client_id=${UNSPLASH_ACCESS_KEY}`
   );
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-  const data = res.json();
+  const data = await res.json();
   console.log(data);
 };
 
@@ -52,8 +52,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showModernArt(e) {
     e.preventDefault();
-    // Fetch paintings from API (e.g., Unsplash)
+    // Fetch modern-art from API (e.g., Unsplash)
     fetchArtworks("modern-art").then((artworks) => displayArtworks(artworks));
+  }
+
+  function showClassics(e) {
+    e.preventDefault();
+    // Fetch classics from API (e.g., Unsplash)
+    fetchArtworks("classics").then((artworks) => displayArtworks(artworks));
   }
 
   function showSculptures(e) {
@@ -74,6 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchArtworks("abstract-art").then((artworks) => displayArtworks(artworks));
   }
 
+  function showFavourites(e) {
+    e.preventDefault();
+    // Fetch cubism from API (e.g., Unsplash)
+    fetchArtworks("favourites").then((artworks) => displayArtworks(artworks));
+  }
   function fetchArtworks(category) {
     // Simulated fetch using a placeholder array of objects
     return new Promise((resolve, reject) => {
