@@ -109,10 +109,17 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchArtworks("abstract-art").then((artworks) => displayArtworks(artworks));
   }
 
-  function showFavourites(e) {
+  async function showFavourites(e) {
     e.preventDefault();
-    fetchArtworks("favourites").then((artworks) => displayArtworks(artworks));
+    const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    if (favourites.length === 0) {
+      grid.innerHTML = "<h2>No favourites yet.</h2>";
+    } else {
+      const favArtworks = favourites.map((id) => getArtworkById(id));
+      displayArtworks(await Promise.all(favArtworks));
+    }
   }
+
   function fetchArtworks(category) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
