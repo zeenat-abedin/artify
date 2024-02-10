@@ -49,13 +49,13 @@ const renderData = (images) => {
 //fetch data
 const fetchData = async () => {
   const res = await fetch(
-    `${API_URL}/photos/?client_id=${UNSPLASH_ACCESS_KEY}`
+    `${API_URL}/photos/?client_id=${UNSPLASH_ACCESS_KEY}&per_page=30`
   );
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   const data = await res.json();
   console.log(data);
 
-  const images = data.map((image) => image.urls.regular);
+  const images = data.map((image) => image?.urls?.regular);
   console.log(images);
   renderData(images);
 };
