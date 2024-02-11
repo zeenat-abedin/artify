@@ -119,15 +119,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  async function showFavourites(e) {
-    e.preventDefault();
-    const favourites = JSON.parse(localStorage.getItem("liked_by_user")) || [];
-    if (favourites.length === 0) {
-      grid.innerHTML = "<h2>No favourites yet.</h2>";
-    } else {
-      const favArtworks = favourites.map((id) => getArtworkById(id));
-      displayArtworks(await Promise.all(favArtworks));
-    }
+  async function showFavourites(images) {
+    let userFavourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    let favourites = images.filter((image) => image.liked_by_user);
+    userFavourites = favourites.map((image) => image.id);
+
+    localStorage.setItem("userFavourites", JSON.stringify(userFavourites));
+
+    console.log("User favourites:", favourites);
   }
 
   function fetchArtworks(category) {
