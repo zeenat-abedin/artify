@@ -7,28 +7,49 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header>
-      <h2><a href="#" id="home">Artify</a></h2>
+    <div class="nav">
       <nav>
+        <div class="logo">
+          <img src="https://source.unsplash.com/random" alt="logo" />
+          <div class="title">Artify</div>
+        </div>
+
         <ul>
-          <li><a href="/modern-art" id="modern-art">Modern Art</a></li>
-          |
-          <li><a href="/classics" id="classics">Classics</a></li>
-          |
-          <li><a href="/sculptures" id="sculptures">Sculptures</a></li>
-          |
-          <li><a href="/cubism" id="cubism">Cubism</a></li>
-          |
-          <li><a href="/abstract-art" id="abstract-art">Abstract Art</a></li>
-          |
-          <li><a href="/favourites" id="favourites">Favourites</a></li>
+          <li class="active">
+            <a class="filter" href="index.html">Featured</a>
+          </li>
+          <li>
+            <a class="filter" href="">Modern</a>
+          </li>
+          <li>
+            <a class="filter" href="">Classics</a>
+          </li>
+          <li>
+            <a class="filter" href="">Sculptures</a>
+          </li>
+          <li>
+            <a class="filter" href="">Abstract</a>
+          </li>
+          <li>
+            <a class="filter" href="">Favourites</a>
+          </li>
         </ul>
       </nav>
-    </header>
-
-    <div class="grid">
-      <!-- Data will be rendered here -->
     </div>
+
+    <div id="main"></div>
+
+    <div class="imageDetails">
+      <!-- <img src="https://source.unsplash.com/random" alt="" />
+      <p class="imageHeart">&#10084;</p>
+      <p class="title">image name</p>
+      <p class="description">image description</p>
+      <p class="category">image category</p>
+      <p class="author">image author</p>
+      <p class="close">X</p> -->
+    </div>
+
+    <div class="footer">Copyright &copy; Nabeel Ali</div>
 
     <script type="module" src="js/index.js"></script>
   </body>
